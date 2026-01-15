@@ -178,7 +178,7 @@
                             <th style="padding: 1rem 1.5rem; background: #f8fafc; text-align: left; font-size: 0.7rem; text-transform: uppercase; color: var(--secondary); border-bottom: 1px solid var(--border);">Account Holder</th>
                             <th style="padding: 1rem 1.5rem; background: #f8fafc; text-align: right; font-size: 0.7rem; text-transform: uppercase; color: var(--secondary); border-bottom: 1px solid var(--border);">Credit (+)</th>
                             <th style="padding: 1rem 1.5rem; background: #f8fafc; text-align: right; font-size: 0.7rem; text-transform: uppercase; color: var(--secondary); border-bottom: 1px solid var(--border);">Debit (-)</th>
-                            <th style="padding: 1rem 1.5rem; background: var(--primary-light); text-align: right; font-size: 0.7rem; text-transform: uppercase; color: var(--primary); border-bottom: 1px solid var(--border);">Saldo Periode</th>
+                            <th style="padding: 1rem 1.5rem; background: var(--primary-light); text-align: right; font-size: 0.7rem; text-transform: uppercase; color: var(--primary); border-bottom: 1px solid var(--border);">Total Saldo</th>
                         </tr>
                     @else
                         <tr>
@@ -200,7 +200,7 @@
                             $accId = $s->account->id ?? 0;
                             $setor = $monthlyTotals[$accId]['setor'] ?? 0;
                             $keluar = $monthlyTotals[$accId]['keluar'] ?? 0;
-                            $totalSaldo = $setor - $keluar;
+                            $totalSaldo = $balances[$accId] ?? 0;
                         @endphp
                         <tr>
                             @if ($viewType === 'summary')
@@ -242,7 +242,7 @@
                             <td colspan="2" style="padding: 1.5rem 2rem; text-align: right; text-transform: uppercase; font-size: 0.65rem; font-weight: 900; color: var(--secondary);">CONSOLIDATED TOTAL</td>
                             <td style="padding: 1.5rem 2rem; text-align: right; color: var(--success); font-weight: 900; font-size: 1rem;">Rp {{ number_format(collect($monthlyTotals)->sum('setor'), 0, ',', '.') }}</td>
                             <td style="padding: 1.5rem 2rem; text-align: right; color: var(--danger); font-weight: 900; font-size: 1rem;">Rp {{ number_format(collect($monthlyTotals)->sum('keluar'), 0, ',', '.') }}</td>
-                            <td style="padding: 1.5rem 2rem; text-align: right; background: var(--primary); color: white; font-weight: 950; font-size: 1.125rem;">Rp {{ number_format(collect($monthlyTotals)->sum('setor') - collect($monthlyTotals)->sum('keluar'), 0, ',', '.') }}</td>
+                            <td style="padding: 1.5rem 2rem; text-align: right; background: var(--primary); color: white; font-weight: 950; font-size: 1.125rem;">Rp {{ number_format(collect($balances)->sum(), 0, ',', '.') }}</td>
                         @else
                             <td colspan="2" style="text-align: right; padding-right: 0.5rem; text-transform: uppercase; font-size: 0.6rem; font-weight: 900; color: var(--secondary);">Daily Vault Sum</td>
                             @for ($d = 1; $d <= $numDays; $d++)

@@ -71,7 +71,12 @@ Ikuti langkah-langkah berikut untuk menginstalasikan project ini di lingkungan l
     ```bash
     php artisan migrate
     ```
-    *Opsional: Jika tersedia seeder, Anda dapat menjalankannya dengan `php artisan db:seed`.*
+    *Konfigurasi Data Awal (Seeders):*
+    Untuk mengisi database dengan akun pengurus dan data simulasi mahasiswa (10 user + transaksi bulan ini), jalankan:
+    ```bash
+    php artisan db:seed --class=AdminSeeder
+    php artisan db:seed --class=StudentTransactionSeeder
+    ```
 
 7.  **Menjalankan Aplikasi**
     Anda perlu menjalankan dua terminal terpisah untuk menjalankan server backend dan proses build frontend.
