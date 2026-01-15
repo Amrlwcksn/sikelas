@@ -11,8 +11,23 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                primary: {
+                    DEFAULT: '#0f172a',
+                    accent: '#2563eb',
+                    light: '#eff6ff',
+                },
+                secondary: '#64748b',
+                success: '#10b981',
+                danger: '#ef4444',
+            },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                heading: ['Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
+            },
+            borderRadius: {
+                'xl': '1rem',
+                '2xl': '1.25rem',
             },
         },
     },

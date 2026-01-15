@@ -1,79 +1,104 @@
 <x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center p-4">
-        <div class="flex w-full max-w-[1000px] bg-white rounded-[2rem] shadow-lg overflow-hidden min-h-[600px]">
-            <!-- Left Side: Visual -->
-            <div class="hidden lg:flex lg:w-1/2 relative p-12 flex-col justify-between text-white overflow-hidden">
-                <div class="absolute inset-0 z-0">
-                    <img src="{{ asset('images/login-bg.png') }}" class="w-full h-full object-cover" alt="Background">
-                    <div class="absolute inset-0 bg-primary/20 backdrop-blur-[2px]"></div>
-                </div>
+    <div class="min-h-screen flex items-center justify-center p-6 bg-main" style="background-image: radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.1) 0px, transparent 50%);">
+        <div class="glass-card w-full max-w-[1100px] overflow-hidden flex flex-col lg:flex-row !p-0" style="min-height: 680px; background: rgba(255, 255, 255, 0.8);">
+            <!-- Left Side: Banking Brand -->
+            <div class="hidden lg:flex lg:w-3/5 relative p-16 flex-col justify-between text-white" style="background: var(--grad-banking);">
+                <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
                 
                 <div class="relative z-10">
-                    <div class="flex items-center gap-3 mb-8">
-                        <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center border border-white/30">
-                            <span class="text-xl font-bold">S</span>
+                    <div class="flex items-center gap-4 mb-12">
+                        <div style="width: 54px; height: 54px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary-accent); shadow: 0 10px 20px rgba(0,0,0,0.1); font-weight: 950; font-size: 1.75rem; font-family: 'Plus Jakarta Sans', sans-serif;">
+                            G
                         </div>
-                        <h1 class="text-2xl font-bold tracking-tight">Sikelas</h1>
+                        <div>
+                            <h1 class="text-4xl font-black tracking-tighter text-blue-500 leading-none">Genite24<span class="text-white">.</span></h1>
+                            <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/60 mt-1">Sikelas Platform</p>
+                        </div>
                     </div>
-                    <h2 class="text-4xl font-extrabold leading-tight">Kelola Kas Kelas <br> Lebih Profesional.</h2>
-                    <p class="mt-4 text-white/80 text-lg">Platform manajemen keuangan kelas yang transparan, aman, dan mudah digunakan.</p>
+                    
+                    <h2 class="text-5xl font-black leading-tight tracking-tight text-white">Sistem Administrasi Keuangan Kas Kelas.</h2>
+                    <p class="mt-6 text-xl text-slate-400 font-medium max-w-md">Memudahkan pengelolaan keuangan kelas secara transparan, rapi, dan efisien.</p>
                 </div>
 
-                <div class="relative z-10 flex gap-4 text-sm font-medium">
-                    <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">Modern</div>
-                    <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">Secure</div>
-                    <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">Efficient</div>
+                <div class="relative z-10">
+                    <div class="bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/10 inline-flex flex-col gap-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+                            <span class="text-sm font-bold tracking-widest uppercase text-white">Pemantauan Aktual</span>
+                        </div>
+                        <p class="text-xs text-white/60">Pantau saldo dan riwayat transaksi berdasarkan data terbaru yang telah dicatat dan diperbarui oleh admin.</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Right Side: Form -->
-            <div class="w-full lg:w-1/2 p-12 flex flex-col justify-center">
-                <div class="mb-10 text-center lg:text-left">
-                    <h3 class="text-3xl font-bold text-main mb-2">Selamat Datang</h3>
-                    <p class="text-text-muted">Silakan masuk menggunakan NPM Anda.</p>
+            <!-- Right Side: Login Logic -->
+            <div class="w-full lg:w-2/5 p-12 lg:p-16 flex flex-col justify-center">
+                <div class="mb-10">
+                    <h3 class="text-3xl font-black text-slate-900 tracking-tight">Selamat Datang</h3>
+                    <p class="text-slate-600 mt-2 font-medium">Akses dasbor keuangan melalui akun Anda.</p>
                 </div>
 
-                <x-auth-session-status class="mb-4" :status="session('status')" />
+                <x-auth-session-status class="mb-6" :status="session('status')" />
 
                 <form method="POST" action="{{ route('login') }}" class="space-y-6">
                     @csrf
 
-                    <!-- NPM -->
+                    <!-- NPM Input -->
                     <div>
-                        <label for="npm" class="block text-sm font-semibold text-main mb-2">NPM</label>
-                        <input id="npm" type="text" name="npm" value="{{ old('npm') }}" required autofocus 
-                            class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" placeholder="Masukkan NPM Anda">
+                        <label for="npm" class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">NPM / Identitas</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                <i data-lucide="user" style="width: 18px; height: 18px;"></i>
+                            </div>
+                            <input id="npm" type="text" name="npm" value="{{ old('npm') }}" required autofocus 
+                                class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all outline-none font-semibold text-slate-800" 
+                                placeholder="Masukkan NPM">
+                        </div>
                         <x-input-error :messages="$errors->get('npm')" class="mt-2" />
                     </div>
 
-                    <!-- Password -->
+                    <!-- Password Input -->
                     <div>
-                        <div class="flex justify-between mb-2">
-                            <label for="password" class="block text-sm font-semibold text-main">Password</label>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="password" class="block text-xs font-bold text-slate-400 uppercase tracking-widest">PIN / Kata Sandi</label>
                             @if (Route::has('password.request'))
-                                <a class="text-sm font-medium text-primary hover:primary-hover" href="{{ route('password.request') }}">
-                                    Lupa Password?
+                                <a class="text-xs font-bold text-primary-accent hover:underline" href="{{ route('password.request') }}">
+                                    Lupa PIN?
                                 </a>
                             @endif
                         </div>
-                        <input id="password" type="password" name="password" required 
-                            class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" placeholder="••••••••">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                <i data-lucide="lock" style="width: 18px; height: 18px;"></i>
+                            </div>
+                            <input id="password" type="password" name="password" required 
+                                class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all outline-none font-semibold text-slate-800" 
+                                placeholder="••••••••">
+                        </div>
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
-                    <!-- Remember Me -->
-                    <label for="remember_me" class="flex items-center gap-3 cursor-pointer group">
-                        <input id="remember_me" type="checkbox" class="w-5 h-5 rounded border-slate-300 text-primary shadow-sm focus:ring-0 focus:ring-offset-0" name="remember">
-                        <span class="text-sm text-text-muted group-hover:text-main transition-colors">Ingat saya untuk 30 hari</span>
-                    </label>
+                    <!-- Options -->
+                    <div class="flex items-center justify-between">
+                        <label for="remember_me" class="flex items-center gap-2 cursor-pointer group">
+                            <input id="remember_me" type="checkbox" class="w-4 h-4 rounded border-slate-300 text-primary-accent focus:ring-primary-accent" name="remember">
+                            <span class="text-sm text-slate-600 group-hover:text-slate-900 transition-colors font-bold">Ingat saya</span>
+                        </label>
+                    </div>
 
-                    <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 1.25rem; border-radius: 1rem; font-size: 1.125rem;">
-                        Masuk Ke Akun
+                    <button type="submit" class="btn btn-primary w-full py-5 rounded-2xl text-lg shadow-xl shadow-blue-500/20">
+                        Masuk Portal <i data-lucide="arrow-right" class="ml-2"></i>
                     </button>
                 </form>
 
-                <div class="mt-10 pt-10 border-t border-slate-100 text-center">
-                    <p class="text-sm text-text-muted">Butuh akses? Hubungi pengurus kelas Anda.</p>
+                <div class="mt-12 pt-8 border-t border-slate-100 text-center">
+                    <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mb-4">Butuh Bantuan Akses?</p>
+                    <p class="text-xs text-slate-400 font-light tracking-widest mb-4">Silakan hubungi pengurus kelas untuk mendapatkan bantuan dan informasi lebih lanjut.</p>
+                    <div class="flex justify-center gap-6">
+                        <a href="#" class="text-slate-400 hover:text-primary-accent transition-colors"><i data-lucide="help-circle" style="width: 20px;"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-primary-accent transition-colors"><i data-lucide="message-square" style="width: 20px;"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-primary-accent transition-colors"><i data-lucide="globe" style="width: 20px;"></i></a>
+                    </div>
                 </div>
             </div>
         </div>

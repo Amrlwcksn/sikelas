@@ -61,6 +61,6 @@ class StudentController extends Controller
             'password' => Hash::make($request->new_password)
         ]);
 
-        return back()->with('success', 'Ganti password sukses bre! Jaga keamanan akun lu yak.');
+        return back()->with('success', 'Sandi sampun digantosipun, mangga dipun jaga keamanan akun panjenengan.');
     }
 }
