@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\AcademicCourse;
 use App\Models\AcademicTask;
 use App\Models\User;
-use App\Models\Account;
-use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
 {
@@ -16,37 +15,35 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Bendahara (Pengelola Keuangan)
-        $bendahara = User::create([
+        // Bendahara (Full Finance)
+        User::create([
             'name' => 'Bendahara Kelas',
-            'npm' => '12345678',
+            'npm' => 123,
             'email' => 'bendahara@sikelas.com',
-            'password' => Hash::make('password'),
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
             'role' => 'bendahara',
         ]);
-        Account::create(['user_id' => $bendahara->id]);
 
-        // 2. Sekertaris (Pengelola Akademik)
+        // Sekertaris (Schedule & Assignments)
         User::create([
             'name' => 'Sekertaris Kelas',
-            'npm' => '87654321',
+            'npm' => 456,
             'email' => 'sekertaris@sikelas.com',
-            'password' => Hash::make('password'),
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
             'role' => 'sekertaris',
         ]);
 
-        // 3. Mahasiswa Contoh (Untuk Simulasi)
+        // Default Student (For testing)
         $student = User::create([
             'name' => 'Mahasiswa Contoh',
-            'npm' => '24340001',
-            'email' => 'student@sikelas.com',
-            'password' => Hash::make('password'),
+            'npm' => 24340001,
+            'email' => '24340001@student.sikelas.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
             'role' => 'mahasiswa',
         ]);
-        Account::create(['user_id' => $student->id]);
+        \App\Models\Account::create(['user_id' => $student->id]);
 
-        // --- Data Akademik Awal ---
-        
+        // Sample Academic Courses
         $pbo = AcademicCourse::create([
             'course_name' => 'Pemrograman Berorientasi Objek',
             'instructor_name' => 'Dr. Budi Santoso',
@@ -67,9 +64,10 @@ class AdminSeeder extends Seeder
             'credit_units' => 2
         ]);
 
+        // Sample Academic Tasks (Now linked to courses)
         AcademicTask::create([
             'academic_course_id' => $db->id,
-            'task_title' => 'Project Design ERD',
+            'task_title' => 'Project Basis Data: ERD Design',
             'task_description' => 'Membuat diagram ERD lengkap untuk sistem perpustakaan.',
             'due_date' => now()->addDays(5),
             'status' => 'active'

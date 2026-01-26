@@ -32,8 +32,38 @@
     </div>
 </div>
 
+<!-- Quick Menu Grid -->
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 2rem;">
+    <a href="{{ route('student.pay') }}" style="text-decoration: none;">
+        <div class="glass-card" style="padding: 1rem 0.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; background: white;">
+            <div style="width: 44px; height: 44px; background: rgba(37, 99, 235, 0.1); color: var(--primary-accent); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="qr-code" style="width: 22px;"></i>
+            </div>
+            <span style="font-size: 0.75rem; font-weight: 800; color: var(--primary);">Bayar Kas</span>
+        </div>
+    </a>
+    
+    <a href="{{ route('student.schedules') }}" style="text-decoration: none;">
+        <div class="glass-card" style="padding: 1rem 0.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; background: white;">
+            <div style="width: 44px; height: 44px; background: rgba(16, 185, 129, 0.1); color: var(--success); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="calendar" style="width: 22px;"></i>
+            </div>
+            <span style="font-size: 0.75rem; font-weight: 800; color: var(--primary);">Jadwal</span>
+        </div>
+    </a>
+
+    <a href="{{ route('student.assignments') }}" style="text-decoration: none;">
+        <div class="glass-card" style="padding: 1rem 0.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; background: white;">
+            <div style="width: 44px; height: 44px; background: rgba(245, 158, 11, 0.1); color: var(--warning); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="clipboard-list" style="width: 22px;"></i>
+            </div>
+            <span style="font-size: 0.75rem; font-weight: 800; color: var(--primary);">Tugas</span>
+        </div>
+    </a>
+</div>
+
 <!-- Quick Stats Grid -->
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 2rem;">
     <div class="glass-card" style="padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
         <div style="width: 32px; height: 32px; background: rgba(16, 185, 129, 0.1); color: var(--success); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
             <i data-lucide="users" style="width: 16px;"></i>
@@ -49,10 +79,18 @@
             <i data-lucide="calendar" style="width: 16px;"></i>
         </div>
         <div>
-            <div style="font-size: 0.65rem; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Terakhir Bayar</div>
-            <div style="font-size: 1rem; font-weight: 800;">
-                {{ $recentTransactions->where('jenis', 'setor')->first() ? \Carbon\Carbon::parse($recentTransactions->where('jenis', 'setor')->first()->tanggal)->format('d M y') : '-' }}
-            </div>
+            <div style="font-size: 0.65rem; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Kuliah Hari Ini</div>
+            <div style="font-size: 1rem; font-weight: 800;">{{ $todaySchedulesCount }} Mata Kuliah</div>
+        </div>
+    </div>
+
+    <div class="glass-card" style="padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+        <div style="width: 32px; height: 32px; background: rgba(245, 158, 11, 0.1); color: var(--warning); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="clipboard-list" style="width: 16px;"></i>
+        </div>
+        <div>
+            <div style="font-size: 0.65rem; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Tugas Aktif</div>
+            <div style="font-size: 1rem; font-weight: 800;">{{ $activeAssignmentsCount }} Tugas</div>
         </div>
     </div>
 </div>
@@ -65,25 +103,6 @@
     <p style="font-size: 0.8125rem; color: var(--text-muted); font-weight: 500; margin: 0;">
         Transaksi aman & terverifikasi oleh pengurus.
     </p>
-</div>
-
-<!-- Balance Validation Info -->
-<div class="glass-card" style="padding: 1.25rem; margin-bottom: 2.5rem; border-left: 4px solid var(--primary-accent); background: white;">
-    <div style="display: flex; gap: 1rem; align-items: start;">
-        <div style="width: 38px; height: 38px; background: rgba(37, 99, 235, 0.1); color: var(--primary-accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <i data-lucide="file-check" style="width: 20px;"></i>
-        </div>
-        <div>
-            <h4 style="font-size: 0.9375rem; font-weight: 800; color: var(--primary); margin-bottom: 0.25rem;">Validasi Saldo Individu</h4>
-            <p style="font-size: 0.8125rem; color: var(--secondary); line-height: 1.5; margin-bottom: 0.75rem;">
-                Ingin mencetak bukti saldo resmi? Hubungi <strong>Bendahara Kelas</strong> untuk meminta "Surat Validasi Cek Saldo" (FIN-02). Dokumen ini berfungsi sebagai bukti sah kepemilikan tabungan kas kelas Anda di sistem Sikelas.
-            </p>
-            <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(37, 99, 235, 0.05); padding: 0.5rem 1rem; border-radius: 0.75rem; border: 1px dashed var(--primary-accent);">
-                <i data-lucide="printer" style="width: 14px; color: var(--primary-accent);"></i>
-                <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary-accent);">Kode Dokumen: FIN-02.VLD.SALDO</span>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- Transactions Header -->
@@ -106,7 +125,10 @@
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 0.9375rem; color: var(--primary);">{{ $tx->keterangan ?? 'Setoran Kas' }}</div>
-                    <div style="font-size: 0.75rem; color: var(--secondary); margin-top: 0.125rem;">{{ \Carbon\Carbon::parse($tx->tanggal)->translatedFormat('d M Y, H:i') }}</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.125rem;">
+                        <span style="font-size: 0.65rem; font-weight: 800; background: rgba(37, 99, 235, 0.05); color: var(--primary-accent); padding: 0.1rem 0.4rem; border-radius: 0.4rem;">{{ auth()->user()->npm }}</span>
+                        <div style="font-size: 0.75rem; color: var(--secondary);">{{ \Carbon\Carbon::parse($tx->tanggal)->translatedFormat('d M Y, h:i A') }}</div>
+                    </div>
                 </div>
             </div>
             <div style="text-align: right;">

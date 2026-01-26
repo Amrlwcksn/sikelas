@@ -36,7 +36,24 @@ class StudentController extends Controller
         $totalClassCash = Transaction::where('jenis', 'setor')->sum('jumlah') - 
                           Transaction::where('jenis', 'keluar')->sum('jumlah');
 
-        return view('student.dashboard', compact('myBalance', 'totalClassCash', 'recentTransactions', 'view'));
+        // New Academic Stats
+        $activeAssignmentsCount = \App\Models\AcademicTask::where('status', 'active')->count();
+        
+        $dayMap = [
+            'Monday' => 'Senin', 'Tuesday' => 'Selasa', 'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis', 'Friday' => 'Jumat', 'Saturday' => 'Sabtu', 'Sunday' => 'Minggu'
+        ];
+        $todayIndo = $dayMap[now()->format('l')] ?? 'Senin';
+        $todaySchedulesCount = \App\Models\AcademicCourse::where('day', $todayIndo)->count();
+
+        return view('student.dashboard', compact(
+            'myBalance', 
+            'totalClassCash', 
+            'recentTransactions', 
+            'view',
+            'activeAssignmentsCount',
+            'todaySchedulesCount'
+        ));
     }
 
     public function settings()

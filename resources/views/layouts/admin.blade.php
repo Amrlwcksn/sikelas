@@ -32,30 +32,51 @@
                     <span>Dashboard</span>
                 </a>
                 
-                <a href="{{ route('admin.students') }}" class="nav-item {{ request()->routeIs('admin.students') ? 'active' : '' }}">
-                    <i data-lucide="users-round"></i>
-                    <span>Mahasiswa</span>
-                </a>
-                
-                <a href="{{ route('admin.transactions') }}" class="nav-item {{ request()->routeIs('admin.transactions') ? 'active' : '' }}">
-                    <i data-lucide="arrow-left-right"></i>
-                    <span>Transaksi</span>
-                </a>
-                
-                <a href="{{ route('admin.rekap') }}" class="nav-item {{ request()->routeIs('admin.rekap') ? 'active' : '' }}">
-                    <i data-lucide="line-chart"></i>
-                    <span>Rekap Kas</span>
-                </a>
-                
-                <a href="{{ route('admin.cek-saldo') }}" class="nav-item {{ request()->routeIs('admin.cek-saldo') ? 'active' : '' }}">
-                    <i data-lucide="wallet"></i>
-                    <span>Cek Saldo</span>
-                </a>
-                
-                <a href="{{ route('admin.registrasi') }}" class="nav-item {{ request()->routeIs('admin.registrasi') ? 'active' : '' }}">
-                    <i data-lucide="user-plus-2"></i>
-                    <span>Registrasi</span>
-                </a>
+                @if(auth()->user()->role === 'bendahara')
+                    <a href="{{ route('admin.students') }}" class="nav-item {{ request()->routeIs('admin.students') ? 'active' : '' }}">
+                        <i data-lucide="users-round"></i>
+                        <span>Mahasiswa</span>
+                    </a>
+                    
+                    <a href="{{ route('admin.transactions') }}" class="nav-item {{ request()->routeIs('admin.transactions') ? 'active' : '' }}">
+                        <i data-lucide="arrow-left-right"></i>
+                        <span>Transaksi</span>
+                    </a>
+                    
+                    <a href="{{ route('admin.rekap') }}" class="nav-item {{ request()->routeIs('admin.rekap') ? 'active' : '' }}">
+                        <i data-lucide="line-chart"></i>
+                        <span>Rekap Kas</span>
+                    </a>
+                    
+                    <a href="{{ route('admin.cek-saldo') }}" class="nav-item {{ request()->routeIs('admin.cek-saldo') ? 'active' : '' }}">
+                        <i data-lucide="wallet"></i>
+                        <span>Cek Saldo</span>
+                    </a>
+                    
+                    <a href="{{ route('admin.registrasi') }}" class="nav-item {{ request()->routeIs('admin.registrasi') ? 'active' : '' }}">
+                        <i data-lucide="user-plus-2"></i>
+                        <span>Registrasi</span>
+                    </a>
+
+                    <div style="height: 1px; background: var(--border); margin: 0.5rem 0;"></div>
+
+                    <a href="{{ route('admin.payments.validasi') }}" class="nav-item {{ request()->routeIs('admin.payments.*') ? 'active' : '' }}">
+                        <i data-lucide="check-square"></i>
+                        <span>Validasi Bayar</span>
+                    </a>
+                @endif
+
+                @if(auth()->user()->role === 'sekertaris')
+                    <a href="{{ route('admin.schedules.index') }}" class="nav-item {{ request()->routeIs('admin.schedules.*') ? 'active' : '' }}">
+                        <i data-lucide="calendar-days"></i>
+                        <span>Atur Jadwal</span>
+                    </a>
+
+                    <a href="{{ route('admin.assignments.index') }}" class="nav-item {{ request()->routeIs('admin.assignments.*') ? 'active' : '' }}">
+                        <i data-lucide="clipboard-list"></i>
+                        <span>Atur Tugas</span>
+                    </a>
+                @endif
                 
                 <div style="margin-top: auto; padding-top: 2rem;">
                     <form method="POST" action="{{ route('logout') }}">

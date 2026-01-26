@@ -109,7 +109,10 @@
                         <tr>
                             <td style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); font-size: 0.8125rem; color: var(--text-muted); font-weight: 600;">{{ \Carbon\Carbon::parse($tx->tanggal)->translatedFormat('d M Y') }}</td>
                             <td style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);">
-                                <div style="font-weight: 800; color: var(--primary);">{{ $tx->account->user->name ?? 'N/A' }}</div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div style="font-weight: 800; color: var(--primary);">{{ $tx->account->user->name ?? 'N/A' }}</div>
+                                    <span style="font-size: 0.65rem; font-weight: 800; background: #e2e8f0; color: #475569; padding: 0.125rem 0.5rem; border-radius: 0.5rem;">{{ $tx->account->user->npm ?? '-' }}</span>
+                                </div>
                                 <div style="font-size: 0.75rem; color: var(--secondary); font-weight: 500; margin-top: 0.125rem;">{{ $tx->keterangan ?? 'Setoran Kas' }}</div>
                             </td>
                             <td style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); text-align: right;">

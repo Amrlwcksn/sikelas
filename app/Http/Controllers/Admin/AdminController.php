@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Account;
 use App\Models\Transaction;
+use App\Models\AcademicCourse;
+use App\Models\AcademicTask;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,7 +21,37 @@ class AdminController extends Controller
         $totalStudents = User::where('role', 'mahasiswa')->count();
         $totalAccounts = Account::count();
 
-        return view('admin.dashboard', compact('totalClassCash', 'totalStudents', 'totalAccounts'));
+        // Academic Stats
+        $totalSchedules = AcademicCourse::count();
+        $activeAssignments = AcademicTask::where('status', 'active')->count();
+
+        // Matrix Data
+        $dayMap = [
+            'Monday' => 'Senin', 'Tuesday' => 'Selasa', 'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis', 'Friday' => 'Jumat', 'Saturday' => 'Sabtu', 'Sunday' => 'Minggu'
+        ];
+        $todayIndo = $dayMap[now()->format('l')] ?? 'Senin';
+
+        $schedulesByDay = AcademicCourse::orderBy('start_time')
+            ->get()
+            ->groupBy('day');
+
+        $upcomingAssignments = AcademicTask::with('course')
+            ->where('status', 'active')
+            ->orderBy('due_date')
+            ->limit(5)
+            ->get();
+
+        return view('admin.dashboard', compact(
+            'totalClassCash', 
+            'totalStudents', 
+            'totalAccounts', 
+            'totalSchedules', 
+            'activeAssignments',
+            'schedulesByDay',
+            'upcomingAssignments',
+            'todayIndo'
+        ));
     }
 
     public function students()

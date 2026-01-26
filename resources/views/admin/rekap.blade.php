@@ -214,8 +214,9 @@
                                 <td style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); text-align: right; font-weight: 900; color: var(--primary); background: rgba(37, 99, 235, 0.02);">Rp {{ number_format($totalSaldo, 0, ',', '.') }}</td>
                             @else
                                 <td style="text-align: center; font-weight: 800; color: var(--secondary);">{{ $index + 1 }}</td>
-                                <td style="padding-left: 0.5rem; text-align: left; font-weight: 800; color: var(--primary); font-size: 0.7rem;">
-                                    {{ Str::limit($s->name, 20) }}
+                                <td style="padding-left: 0.5rem; text-align: left; font-weight: 800; color: var(--primary); font-size: 0.7rem; line-height: 1.2;">
+                                    <div>{{ Str::limit($s->name, 20) }}</div>
+                                    <div style="font-size: 0.55rem; color: var(--secondary); font-weight: 700;">{{ $s->npm }}</div>
                                 </td>
                                 @for ($d = 1; $d <= $numDays; $d++)
                                     @php $dayVal = $matrix[$accId][$d] ?? 0; @endphp
