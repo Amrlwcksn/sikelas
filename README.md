@@ -1,4 +1,4 @@
-# Sikelas - Portal Kendali Kelas Terintegrasi
+# Sikelas 
 
 Sikelas adalah platform modern berbasis web yang dirancang khusus untuk memfasilitasi pengelolaan administrasi kelas mahasiswa secara profesional. Mulai dari transparansi tabungan kas, pelacakan tugas akademik, hingga manajemen jadwal perkuliahan, semuanya terpusat dalam satu dashboard.
 
