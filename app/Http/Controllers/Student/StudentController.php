@@ -36,6 +36,27 @@ class StudentController extends Controller
         $totalClassCash = Transaction::where('jenis', 'setor')->sum('jumlah') - 
                           Transaction::where('jenis', 'keluar')->sum('jumlah');
 
+        $totalSetor = Transaction::where('jenis', 'setor')->sum('jumlah');
+        $totalKeluar = Transaction::where('jenis', 'keluar')->sum('jumlah');
+
+        // Check if user has paid this week
+        $hasPaidThisWeek = false;
+        if ($account) {
+            $hasPaidThisWeek = Transaction::where('account_id', $account->id)
+                ->where('jenis', 'setor')
+                ->whereBetween('tanggal', [now()->startOfWeek(), now()->endOfWeek()])
+                ->exists();
+        }
+
+        $sarcasticMessages = [
+            "Kasihani Bendahara, bayar kas sekarang atau kami kirim penagih hutang ke mimpi Anda!",
+            "Uang kas macet, pembangunan surga kelas terhambat. Segera lunasi!",
+            "Anda ingin kelas AC tapi bayar kas saja seperti mencicil dosa. Bayar!",
+            "Saldo kas menipis setipis kesabaran Bendahara. Yuk bayar!",
+            "Jangan biarkan Bendahara menangis di pojokan karena saldo kosong. Bayar kas dong!"
+        ];
+        $sarcasticMessage = $sarcasticMessages[array_rand($sarcasticMessages)];
+
         // New Academic Stats
         $activeAssignmentsCount = \App\Models\AcademicTask::where('status', 'active')->count();
         
@@ -49,6 +70,10 @@ class StudentController extends Controller
         return view('student.dashboard', compact(
             'myBalance', 
             'totalClassCash', 
+            'totalSetor',
+            'totalKeluar',
+            'hasPaidThisWeek',
+            'sarcasticMessage',
             'recentTransactions', 
             'view',
             'activeAssignmentsCount',
