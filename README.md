@@ -1,4 +1,4 @@
-# Sikelas - Portal Kendali Kelas Terintegrasi
+# Sikelas 
 
 Sikelas adalah platform modern berbasis web yang dirancang khusus untuk memfasilitasi pengelolaan administrasi kelas mahasiswa secara profesional. Mulai dari transparansi tabungan kas, pelacakan tugas akademik, hingga manajemen jadwal perkuliahan, semuanya terpusat dalam satu dashboard.
 
@@ -74,11 +74,11 @@ Setelah kedua service berjalan, akses aplikasi melalui browser pada alamat: http
 ## Akun Uji Coba (Demo)
 Anda dapat menggunakan kredensial di bawah ini untuk menguji fitur setelah proses seeding selesai:
 
-| Peran | Alamat Email | Kata Sandi |
+| Peran | NPM | Kata Sandi |
 | :--- | :--- | :--- |
-| Bendahara | bendahara@sikelas.com | password |
-| Sekertaris | sekertaris@sikelas.com | password |
-| Mahasiswa | student@sikelas.com | password |
+| Bendahara | 123 | password |
+| Sekertaris | 456 | password |
+| Mahasiswa | 24340001 | password |
 
 ---
 
